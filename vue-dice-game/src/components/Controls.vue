@@ -10,25 +10,43 @@
       <i class="ion-ios-download-outline"></i>Hold
     </button>
 
-    <input type="number" placeholder="Final score" class="final-score" />
+    <input
+      type="number"
+      placeholder="Final score"
+      class="final-score"
+      v-bind:value="finalScore"
+      v-bind:disabled="isPlaying"
+      v-on:input="$emit('HandleFinalScore',$event)"
+    />
+    <!--
+      1. ràng buộc 1 chiều: v-bind
+          1 chiều từ data -> input
+      2. ràng buộc 2 chiều: v-model
+          1 chiều từ data -> input
+          1 chiều từ input -> data
+    -->
   </div>
 </template>
 <script>
 export default {
   name: "com-controls",
+  props: {
+    finalScore: { type: [Number, String], default: 100 },
+    isPlaying: { type: Boolean, default: true }
+  },
   data() {
     return {};
   },
-  methods:{
-      newsGame(){
-          this.$emit("handleNewGame");
-      },
-      rollDice(){
-          this.$emit("handleRollDice");
-      },
-      HoldDice(){
-          this.$emit("HandleHoldDice");
-      }
+  methods: {
+    newsGame() {
+      this.$emit("handleNewGame");
+    },
+    rollDice() {
+      this.$emit("handleRollDice");
+    },
+    HoldDice() {
+      this.$emit("HandleHoldDice");
+    }
   }
 };
 </script>
